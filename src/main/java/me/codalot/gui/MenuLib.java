@@ -1,8 +1,11 @@
 package me.codalot.gui;
 
 import lombok.Getter;
+import me.codalot.gui.commands.MenuLibCmd;
 import me.codalot.gui.listeners.MenuListener;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
 
 public class MenuLib extends JavaPlugin {
 
@@ -12,7 +15,15 @@ public class MenuLib extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        new MenuListener(this, true);
+        File menusFolder = new File(getDataFolder(), "menus");
+        if (!menusFolder.exists())
+            menusFolder.mkdirs();
+
+        getConfig().options().copyDefaults(true);
+        saveDefaultConfig();
+
+        new MenuLibCmd(this);
+        new MenuListener(this, getConfig().getBoolean("support-animations", false));
     }
 
 }

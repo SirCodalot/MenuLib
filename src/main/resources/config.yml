@@ -1,0 +1,9 @@
+##---------##
+## MenuLib ##
+##---------##
+
+# For more information, visit this project on GitHub:
+# https://github.com/SirCodalot/MenuLib
+
+# If you're not using the animations feature, I recommend turning this off for better performance.
+support-animations: false

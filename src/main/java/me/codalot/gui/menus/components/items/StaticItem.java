@@ -1,7 +1,7 @@
 package me.codalot.gui.menus.components.items;
 
 import lombok.Getter;
-import me.codalot.core.utils.ItemUtils;
+import me.codalot.gui.utils.ItemUtils;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Map;
