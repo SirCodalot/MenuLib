@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="MenuLib:jar">
-    <output-path>D:/Minecraft Servers/Spigot 1.14/plugins/</output-path>
+    <output-path>D:/Minecraft Servers/Spigot 1.14/plugins</output-path>
     <root id="archive" name="MenuLib.jar">
       <element id="module-output" name="MenuLib" />
     </root>
