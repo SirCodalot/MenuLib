@@ -12,11 +12,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Canvases are menu components that can hold other components
+ * You can make canvases hold more canvases to keep things
+ * organized and categorized.
+ */
 @Getter
 public class Canvas extends HashMap<Slot, IComponent> implements IComponent {
 
     protected String tag;
 
+    /**
+     * Use this constructor when making a menu with code
+     */
     public Canvas() {
         super();
 
@@ -41,6 +49,9 @@ public class Canvas extends HashMap<Slot, IComponent> implements IComponent {
         }
     }
 
+    /**
+     * @return All of the canvas' contents, including contents of deeper canvases.
+     */
     public List<IComponent> getAllComponents() {
         List<IComponent> components = new ArrayList<>();
 

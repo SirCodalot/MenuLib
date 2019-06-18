@@ -24,6 +24,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
+/**
+ * Menus are InventoryHolders that behave differently. They store the
+ * menu's main canvas as well as all of the clickable and animated
+ * components.
+ */
 @Getter
 public class Menu implements InventoryHolder {
 
@@ -37,6 +42,10 @@ public class Menu implements InventoryHolder {
 
     @Setter private Map<String, BiConsumer<Player, ClickType>> actions;
 
+    /**
+     * @param data The menu's data (title, rows, items, etc...)
+     * @param actions Consumers that can be assigned to buttons
+     */
     public Menu(MenuData data, Map<String, BiConsumer<Player, ClickType>> actions) {
         this.data = data;
         previous = null;
@@ -52,6 +61,9 @@ public class Menu implements InventoryHolder {
         update();
     }
 
+    /**
+     * @param data The menu's data (title, rows, items, etc...)
+     */
     public Menu(MenuData data) {
         this(data, new HashMap<>());
     }
@@ -71,6 +83,9 @@ public class Menu implements InventoryHolder {
         actions.put("exit", (player, click) -> player.closeInventory());
     }
 
+    /**
+     * This method clears the inventory and re-draws all of the components.
+     */
     public void update() {
         inventory.clear();
         clickables.clear();
@@ -78,7 +93,7 @@ public class Menu implements InventoryHolder {
         canvas.draw(this, new Slot());
     }
 
-    public void open(Player player, boolean switched) {
+    private void open(Player player, boolean switched) {
         if (switched)
             SoundUtils.play(player, data.getSwitchSound());
         else
@@ -87,6 +102,12 @@ public class Menu implements InventoryHolder {
         player.openInventory(inventory);
     }
 
+    /**
+     * This method opens the menu for a player. Please
+     * use this method instead of Player#openInventory
+     *
+     * @param player The menu will open for this player.
+     */
     public void open(Player player) {
         boolean switched = false;
 

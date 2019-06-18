@@ -7,6 +7,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 
+/**
+ * MenuLib is an opensource library for making customizable menus.
+ * For help, visit this project on GitHub.
+ *
+ * @author Shoham Tzubery (SirCodalot)
+ * @version 1.0
+ */
 public class MenuLib extends JavaPlugin {
 
     @Getter private static MenuLib instance;

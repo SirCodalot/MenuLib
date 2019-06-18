@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * ListCanvases are canvases that can hold components in
+ * the form of a list. They also have a scrolling option.
+ */
 @Getter
 public class ListCanvas extends Canvas {
 
@@ -22,6 +26,9 @@ public class ListCanvas extends Canvas {
 
     private boolean loop;
 
+    /**
+     * Use this constructor when making a menu with code
+     */
     public ListCanvas() {
         super();
 
@@ -79,16 +86,25 @@ public class ListCanvas extends Canvas {
         return components;
     }
 
+    /**
+     * Increases the index based on the "scroll" variable's value
+     */
     public void scrollForward() {
         index += scroll;
         validateIndex();
     }
 
+    /**
+     * Decreases the index based on the "scroll" variable's value
+     */
     public void scrollBackward() {
         index -= scroll;
         validateIndex();
     }
 
+    /**
+     * Resets the content of the canvas. Should be called when modifying the index.
+     */
     public void refresh() {
         clear();
 

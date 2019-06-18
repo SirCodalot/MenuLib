@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
+/**
+ * This is a special menu component that can be clicked.
+ */
 @Getter
 public class Button implements IComponent, Clickable {
 
@@ -33,6 +36,9 @@ public class Button implements IComponent, Clickable {
     private List<String> commands;
     private List<String> sudo;
 
+    /**
+     * Use this constructor when making a menu with code
+     */
     public Button(MenuItem item) {
         tag = null;
 

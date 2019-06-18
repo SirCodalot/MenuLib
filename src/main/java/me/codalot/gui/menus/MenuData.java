@@ -15,6 +15,10 @@ import org.bukkit.inventory.Inventory;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * MenuData holds information that is used when creating a menu.
+ * For example: title, rows, sounds, components, etc...
+ */
 @Getter
 @Setter
 public class MenuData {
@@ -30,6 +34,12 @@ public class MenuData {
 
     private Canvas canvas;
 
+    /**
+     * Use this constructor when making a menu from code.
+     *
+     * @param title The inventory's title
+     * @param rows How many rows will the inventory have
+     */
     public MenuData(String title, int rows) {
         this.title = title;
         this.rows = rows;
@@ -43,6 +53,11 @@ public class MenuData {
         canvas = new Canvas();
     }
 
+    /**
+     * Use this constructor when making a menu from a file
+     *
+     * @param file The YAML file that holds all of the information.
+     */
     @SuppressWarnings("all")
     public MenuData(YamlConfiguration file) {
         title = ChatColor.translateAlternateColorCodes('&', file.getString("title", "Untitled"));
@@ -73,7 +88,6 @@ public class MenuData {
     public Canvas cloneCanvas() {
         return canvas.clone();
     }
-
 
     private static Map<String, Object> toMap(ConfigurationSection section) {
         Map<String, Object> map = new HashMap<>();

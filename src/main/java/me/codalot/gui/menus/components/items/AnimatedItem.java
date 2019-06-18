@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This is a MenuItem that changes every few ticks, making
+ * it look like an animated item.
+ */
 @Getter
 public class AnimatedItem implements MenuItem {
 

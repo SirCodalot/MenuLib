@@ -6,6 +6,9 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Map;
 
+/**
+ * This is a MenuItem that always stays the same.
+ */
 @Getter
 public class StaticItem implements MenuItem {
 
