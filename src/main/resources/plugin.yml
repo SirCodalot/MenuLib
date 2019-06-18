@@ -1,0 +1,7 @@
+main: me.codalot.gui.MenuLib
+name: MenuLib
+version: 1.0
+
+author: Shoham Tzubery (SirCodlaot)
+website: https://github.com/SirCodalot/MenuLib
+description: An opensource library for making animated and configurable Minecraft menus
