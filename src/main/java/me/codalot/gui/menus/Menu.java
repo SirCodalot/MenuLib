@@ -67,6 +67,8 @@ public class Menu implements InventoryHolder {
                 }
             }
         }
+
+        actions.put("exit", (player, click) -> player.closeInventory());
     }
 
     public void update() {
