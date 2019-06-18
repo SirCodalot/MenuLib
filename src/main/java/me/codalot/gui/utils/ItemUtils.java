@@ -1,6 +1,7 @@
 package me.codalot.gui.utils;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -21,7 +22,7 @@ public class ItemUtils {
 
     @SuppressWarnings("all")
     public static ItemStack deserialize(Map<String, Object> map) {
-        ItemStack item = new ItemStack(MaterialUtils.getMaterial((String) map.get("material")));
+        ItemStack item = createItem((String) map.get("material"));
         ItemMeta meta = item.getItemMeta();
 
         int amount = (int) map.getOrDefault("amount", 1);
@@ -40,11 +41,23 @@ public class ItemUtils {
         if ((boolean) map.getOrDefault("glow", false))
             meta.addEnchant(Enchantment.DURABILITY, 1, true);
 
-        meta.setUnbreakable((boolean) map.getOrDefault("unbreakable", false));
+        setUnbreakable(meta, (boolean) map.getOrDefault("unbreakable", false));
 
         meta.addItemFlags(ItemFlag.values());
 
         item.setItemMeta(meta);
+        return item;
+    }
+
+    public static ItemStack createItem(String data) {
+        String[] split = data.split(":");
+
+        Material material = MaterialUtils.getMaterial(split[0]);
+        int durability = split.length > 1 ? Integer.parseInt(split[1]) : 0;
+
+        ItemStack item = new ItemStack(material);
+        item.setDurability((short) durability);
+
         return item;
     }
 
@@ -56,6 +69,14 @@ public class ItemUtils {
         list.forEach(string -> colored.add(ChatColor.translateAlternateColorCodes('&', string)));
 
         return colored;
+    }
+
+    private static void setUnbreakable(ItemMeta meta, boolean unbreakable) {
+        try {
+            meta.getClass().getDeclaredMethod("setUnbreakable", boolean.class).invoke(meta, unbreakable);
+        } catch (Exception e) {
+            meta.spigot().setUnbreakable(unbreakable);
+        }
     }
 
 }
