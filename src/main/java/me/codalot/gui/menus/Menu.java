@@ -29,6 +29,7 @@ import java.util.function.BiConsumer;
  * menu's main canvas as well as all of the clickable and animated
  * components.
  */
+@SuppressWarnings("WeakerAccess")
 @Getter
 public class Menu implements InventoryHolder {
 

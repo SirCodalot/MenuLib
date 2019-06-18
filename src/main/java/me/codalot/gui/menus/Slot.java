@@ -4,6 +4,7 @@ import lombok.Getter;
 import org.bukkit.inventory.Inventory;
 
 @Getter
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class Slot {
 
     private int x;

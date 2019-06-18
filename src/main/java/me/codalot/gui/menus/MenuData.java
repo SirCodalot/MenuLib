@@ -19,6 +19,7 @@ import java.util.Map;
  * MenuData holds information that is used when creating a menu.
  * For example: title, rows, sounds, components, etc...
  */
+@SuppressWarnings({"WeakerAccess", "unused"})
 @Getter
 @Setter
 public class MenuData {

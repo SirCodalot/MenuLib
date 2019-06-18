@@ -6,7 +6,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class PlaceholderUtils {
 
     public static String apply(String original, String... placeholders) {
@@ -26,6 +26,7 @@ public class PlaceholderUtils {
         return replaced;
     }
 
+    @SuppressWarnings("all")
     public static ItemStack apply(ItemStack item, String... placeholders) {
         ItemMeta meta = item.getItemMeta();
 

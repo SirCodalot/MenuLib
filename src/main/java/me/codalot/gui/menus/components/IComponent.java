@@ -6,6 +6,7 @@ import me.codalot.gui.menus.Slot;
 /**
  * Everything inside a menu is an IComponent.
  */
+@SuppressWarnings("unused")
 public interface IComponent {
 
     String getTag();

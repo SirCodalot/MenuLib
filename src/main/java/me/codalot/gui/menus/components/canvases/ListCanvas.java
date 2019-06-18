@@ -15,6 +15,7 @@ import java.util.Map;
  * ListCanvases are canvases that can hold components in
  * the form of a list. They also have a scrolling option.
  */
+@SuppressWarnings("WeakerAccess")
 @Getter
 public class ListCanvas extends Canvas {
 

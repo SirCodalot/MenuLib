@@ -9,6 +9,7 @@ import java.util.Map;
 /**
  * This is a MenuItem that always stays the same.
  */
+@SuppressWarnings("WeakerAccess")
 @Getter
 public class StaticItem implements MenuItem {
 

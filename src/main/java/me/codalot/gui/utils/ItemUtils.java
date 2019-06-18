@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings("deprecation")
 public class ItemUtils {
 
     public static void set(ItemStack item, ItemStack value) {
@@ -49,7 +50,7 @@ public class ItemUtils {
         return item;
     }
 
-    public static ItemStack createItem(String data) {
+    private static ItemStack createItem(String data) {
         String[] split = data.split(":");
 
         Material material = MaterialUtils.getMaterial(split[0]);

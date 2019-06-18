@@ -19,6 +19,7 @@ import java.util.function.BiConsumer;
 /**
  * This is a special menu component that can be clicked.
  */
+@SuppressWarnings("WeakerAccess")
 @Getter
 public class Button implements IComponent, Clickable {
 

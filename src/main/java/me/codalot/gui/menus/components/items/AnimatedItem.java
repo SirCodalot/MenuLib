@@ -12,6 +12,7 @@ import java.util.Map;
  * This is a MenuItem that changes every few ticks, making
  * it look like an animated item.
  */
+@SuppressWarnings("WeakerAccess")
 @Getter
 public class AnimatedItem implements MenuItem {
 

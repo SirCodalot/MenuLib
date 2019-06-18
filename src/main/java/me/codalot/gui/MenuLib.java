@@ -19,6 +19,7 @@ public class MenuLib extends JavaPlugin {
     @Getter private static MenuLib instance;
 
     @Override
+    @SuppressWarnings("all")
     public void onEnable() {
         instance = this;
 

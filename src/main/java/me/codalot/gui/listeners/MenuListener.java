@@ -15,6 +15,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.HashSet;
 import java.util.Set;
 
+@SuppressWarnings("unused")
 public class MenuListener implements Listener {
 
     private JavaPlugin plugin;

@@ -8,19 +8,24 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public class MenuLibCmd implements CommandExecutor {
+public class MenuLibCmd implements CommandExecutor, TabCompleter {
 
     private static HashMap<String, MenuData> menus = new HashMap<>();
 
     @SuppressWarnings("all")
     public MenuLibCmd(MenuLib plugin) {
         plugin.getCommand("menulib").setExecutor(this);
+        plugin.getCommand("menulib").setTabCompleter(this);
         reload();
     }
 
@@ -115,6 +120,55 @@ public class MenuLibCmd implements CommandExecutor {
         sender.sendMessage(ChatColor.DARK_RED + "Invalid Usage. Type " + ChatColor.RED + "/mlib" + ChatColor.DARK_RED + " for help.");
 
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+        List<String> options = new ArrayList<>();
+
+        if (args.length == 1) {
+            options.addAll(getFirstArgs(sender));
+        } else if (args.length > 1) {
+            switch (args[0].toLowerCase()) {
+                case "reload":
+                    if (args.length == 2 && sender.hasPermission("menulib.reload"))
+                        options.addAll(getMenuNames());
+                    break;
+                case "open":
+                    if (!sender.hasPermission("menulib.open"))
+                        break;
+                    if (args.length == 2)
+                        options.addAll(getMenuNames());
+                    else if (args.length == 3)
+                        options.addAll(getOnlinePlayers());
+                    break;
+            }
+        }
+
+        ArrayList<String> matches = new ArrayList<>();
+        StringUtil.copyPartialMatches(args[args.length - 1], options, matches);
+        return matches;
+    }
+
+    private static List<String> getFirstArgs(CommandSender sender) {
+        return new ArrayList<String>() {{
+            if (sender.hasPermission("menulib.reload"))
+                add("reload");
+            if (sender.hasPermission("menulib.open"))
+                add("open");
+            if (sender.hasPermission("menulib.list"))
+                add("list");
+        }};
+    }
+
+    private static List<String> getMenuNames() {
+        return new ArrayList<>(menus.keySet());
+    }
+
+    private static List<String> getOnlinePlayers() {
+        return new ArrayList<String>() {{
+            Bukkit.getOnlinePlayers().forEach(player -> add(player.getName()));
+        }};
     }
 
     private boolean reload(String name) {
