@@ -1,6 +1,7 @@
 package me.codalot.gui;
 
 import lombok.Getter;
+import me.codalot.gui.listeners.MenuListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MenuLib extends JavaPlugin {
@@ -10,6 +11,8 @@ public class MenuLib extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+
+        new MenuListener(this, true);
     }
 
 }
