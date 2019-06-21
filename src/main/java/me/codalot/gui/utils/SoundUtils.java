@@ -11,7 +11,7 @@ public class SoundUtils {
 
         String[] split = serialized.split(" ");
 
-        Sound sound = split.length > 0 ? Sound.valueOf(split[0]) : Sound.BLOCK_NOTE_BLOCK_PLING;
+        Sound sound = split.length > 0 ? Sound.valueOf(split[0]) : Sound.values()[0];
         float volume = split.length > 1 ? Float.parseFloat(split[1]) : 10;
         float pitch = split.length > 2 ? Float.parseFloat(split[2]) : 1;
 

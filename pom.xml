@@ -4,9 +4,20 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <name>MenuLib</name>
+    <description>An opensource library for making animated and configurable Minecraft menus</description>
+    <url>https://github.com/SirCodalot/MenuLib</url>
+
     <groupId>me.codalot</groupId>
     <artifactId>gui</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <developers>
+        <developer>
+            <name>Shoham Tzubery (SirCodalot)</name>
+            <url>https://github.com/SirCodalot</url>
+        </developer>
+    </developers>
 
     <build>
         <resources>
@@ -45,26 +56,19 @@
         </plugins>
     </build>
 
-    <repositories>
-        <repository>
-            <id>vault-repo</id>
-            <url>http://nexus.hc.to/content/repositories/pub_releases</url>
-        </repository>
-    </repositories>
-
     <dependencies>
         <!--Spigot API-->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.14.2-R0.1-SNAPSHOT</version>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <!--Bukkit API-->
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.14.2-R0.1-SNAPSHOT</version>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <!--Lombok-->
