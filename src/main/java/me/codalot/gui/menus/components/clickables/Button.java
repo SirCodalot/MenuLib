@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -37,6 +38,8 @@ public class Button implements IComponent, Clickable {
     private List<String> commands;
     private List<String> sudo;
 
+    private String[] placeholders;
+
     /**
      * Use this constructor when making a menu with code
      */
@@ -54,6 +57,8 @@ public class Button implements IComponent, Clickable {
 
         commands = null;
         sudo = null;
+
+        placeholders = null;
     }
 
     @SuppressWarnings("all")
@@ -71,6 +76,8 @@ public class Button implements IComponent, Clickable {
 
         commands = (List<String>) map.get("commands");
         sudo = (List<String>) map.get("sudo");
+
+        placeholders = null;
     }
 
     public Button setTag(String tag) {
@@ -113,6 +120,11 @@ public class Button implements IComponent, Clickable {
         return this;
     }
 
+    public Button setPlaceholders(String[] placeholders) {
+        this.placeholders = placeholders;
+        return this;
+    }
+
     @Override
     public boolean hasTag(String tag) {
         return this.tag != null && this.tag.equalsIgnoreCase(tag);
@@ -151,7 +163,7 @@ public class Button implements IComponent, Clickable {
         if (item instanceof AnimatedItem)
             menu.getAnimations().add((AnimatedItem) item);
 
-        menu.getInventory().setItem(slot.getSlot(), item.getItem());
+        menu.getInventory().setItem(slot.getSlot(), placeholders == null ? item.getItem() : item.getItem(placeholders));
         menu.getClickables().put(slot.getSlot(), this);
     }
 
@@ -166,7 +178,8 @@ public class Button implements IComponent, Clickable {
                 .setSound(sound)
                 .setNoPermissionSound(noPermissionSound)
                 .setCommands(commands == null ? null : new ArrayList<>(commands))
-                .setSudo(sudo == null ? null : new ArrayList<>(sudo));
+                .setSudo(sudo == null ? null : new ArrayList<>(sudo))
+                .setPlaceholders(placeholders == null ? null : Arrays.copyOf(placeholders, placeholders.length));
     }
 
 }

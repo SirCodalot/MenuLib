@@ -2,6 +2,7 @@ package me.codalot.gui.menus.components.items;
 
 import lombok.Getter;
 import me.codalot.gui.utils.ItemUtils;
+import me.codalot.gui.utils.PlaceholderUtils;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -46,6 +47,16 @@ public class AnimatedItem implements MenuItem {
             frame = 0;
 
         ItemUtils.set(item, frames.get(frame));
+    }
+
+    @Override
+    public ItemStack getItem() {
+        return item;
+    }
+
+    @Override
+    public ItemStack getItem(String... placeholders) {
+        return PlaceholderUtils.apply(item.clone(), placeholders);
     }
 
     @Override

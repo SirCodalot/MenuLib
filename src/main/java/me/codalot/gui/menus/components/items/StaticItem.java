@@ -1,7 +1,7 @@
 package me.codalot.gui.menus.components.items;
 
-import lombok.Getter;
 import me.codalot.gui.utils.ItemUtils;
+import me.codalot.gui.utils.PlaceholderUtils;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Map;
@@ -10,7 +10,6 @@ import java.util.Map;
  * This is a MenuItem that always stays the same.
  */
 @SuppressWarnings("WeakerAccess")
-@Getter
 public class StaticItem implements MenuItem {
 
     private ItemStack item;
@@ -21,6 +20,16 @@ public class StaticItem implements MenuItem {
 
     public StaticItem(Map<String, Object> map) {
         this(ItemUtils.deserialize(map));
+    }
+
+    @Override
+    public ItemStack getItem() {
+        return item;
+    }
+
+    @Override
+    public ItemStack getItem(String... placeholders) {
+        return PlaceholderUtils.apply(item.clone(), placeholders);
     }
 
     @Override

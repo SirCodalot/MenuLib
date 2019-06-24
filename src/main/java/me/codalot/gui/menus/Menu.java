@@ -1,7 +1,9 @@
 package me.codalot.gui.menus;
 
 import lombok.Getter;
+import me.codalot.gui.menus.components.IComponent;
 import me.codalot.gui.menus.components.canvases.Canvas;
+import me.codalot.gui.menus.components.clickables.Button;
 import me.codalot.gui.menus.components.clickables.Clickable;
 import me.codalot.gui.menus.components.items.AnimatedItem;
 import me.codalot.gui.utils.MaterialUtils;
@@ -24,6 +26,7 @@ import java.util.Set;
  * menu's main canvas as well as all of the clickable and animated
  * components.
  */
+@SuppressWarnings("unused")
 @Getter
 public class Menu implements InventoryHolder {
 
@@ -58,6 +61,18 @@ public class Menu implements InventoryHolder {
         clickables.clear();
         animations.clear();
         canvas.draw(this, new Slot());
+    }
+
+    /**
+     * Replaces certain text parts in items' names and lores.
+     *
+     * @param placeholders Array of placeholders. Placeholder format: key:value
+     */
+    public void applyPlaceholders(String... placeholders) {
+        for (IComponent component : canvas.getAllComponents()) {
+            if (component instanceof Button)
+                ((Button) component).setPlaceholders(placeholders);
+        }
     }
 
     private void open(Player player, boolean switched) {

@@ -65,7 +65,6 @@ public class MenuData {
      *
      * @param file The YAML file that holds the menu's information.
      */
-    @SuppressWarnings("all")
     public MenuData(YamlConfiguration file) {
         title = ChatColor.translateAlternateColorCodes('&', file.getString("title", "Untitled"));
         rows = file.getInt("rows", 3);
