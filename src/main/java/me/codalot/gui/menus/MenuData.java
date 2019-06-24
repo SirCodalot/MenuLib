@@ -10,10 +10,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiConsumer;
 
 /**
  * MenuData holds information that is used when creating a menu.
@@ -35,6 +38,8 @@ public class MenuData {
 
     private Canvas canvas;
 
+    private Map<String, BiConsumer<Menu, InventoryClickEvent>> actions;
+
     /**
      * Use this constructor when making a menu from code.
      *
@@ -52,12 +57,13 @@ public class MenuData {
         switchSound = null;
 
         canvas = new Canvas();
+        actions = getGlobalActions();
     }
 
     /**
      * Use this constructor when making a menu from a file
      *
-     * @param file The YAML file that holds all of the information.
+     * @param file The YAML file that holds the menu's information.
      */
     @SuppressWarnings("all")
     public MenuData(YamlConfiguration file) {
@@ -80,6 +86,7 @@ public class MenuData {
             }
 
         canvas = new Canvas(items, toMap(file.getConfigurationSection("canvas")));
+        actions = getGlobalActions();
     }
 
     public Inventory createInventory(Menu menu) {
@@ -102,6 +109,18 @@ public class MenuData {
                 map.put(key, value);
 
         }
+
+        return map;
+    }
+
+    private static Map<String, BiConsumer<Menu, InventoryClickEvent>> getGlobalActions() {
+        Map<String, BiConsumer<Menu, InventoryClickEvent>> map = new HashMap<>();
+
+        map.put("exit", (menu, event) -> event.getWhoClicked().closeInventory());
+        map.put("return", (menu, event) -> {
+            if (menu.getPrevious() != null)
+                menu.getPrevious().open((Player) event.getWhoClicked());
+        });
 
         return map;
     }

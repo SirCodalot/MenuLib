@@ -1,16 +1,12 @@
 package me.codalot.gui.menus;
 
 import lombok.Getter;
-import lombok.Setter;
-import me.codalot.gui.menus.components.IComponent;
 import me.codalot.gui.menus.components.canvases.Canvas;
-import me.codalot.gui.menus.components.canvases.ListCanvas;
 import me.codalot.gui.menus.components.clickables.Clickable;
 import me.codalot.gui.menus.components.items.AnimatedItem;
 import me.codalot.gui.utils.MaterialUtils;
 import me.codalot.gui.utils.SoundUtils;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
@@ -22,14 +18,12 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.BiConsumer;
 
 /**
  * Menus are InventoryHolders that behave differently. They store the
  * menu's main canvas as well as all of the clickable and animated
  * components.
  */
-@SuppressWarnings("WeakerAccess")
 @Getter
 public class Menu implements InventoryHolder {
 
@@ -41,13 +35,10 @@ public class Menu implements InventoryHolder {
     private Map<Integer, Clickable> clickables;
     private Set<AnimatedItem> animations;
 
-    @Setter private Map<String, BiConsumer<Player, ClickType>> actions;
-
     /**
      * @param data The menu's data (title, rows, items, etc...)
-     * @param actions Consumers that can be assigned to buttons
      */
-    public Menu(MenuData data, Map<String, BiConsumer<Player, ClickType>> actions) {
+    public Menu(MenuData data) {
         this.data = data;
         previous = null;
 
@@ -56,32 +47,7 @@ public class Menu implements InventoryHolder {
         clickables = new HashMap<>();
         animations = new HashSet<>();
 
-        this.actions = actions;
-        generateActions();
-
         update();
-    }
-
-    /**
-     * @param data The menu's data (title, rows, items, etc...)
-     */
-    public Menu(MenuData data) {
-        this(data, new HashMap<>());
-    }
-
-    private void generateActions() {
-        for (IComponent component : canvas.getAllComponents()) {
-            if (component instanceof ListCanvas) {
-                ListCanvas list = (ListCanvas) component;
-
-                if (list.getTag() != null) {
-                    actions.put(list.getTag() + "-forward", (player, click) -> list.scrollForward());
-                    actions.put(list.getTag() + "-backward", (player, click) -> list.scrollBackward());
-                }
-            }
-        }
-
-        actions.put("exit", (player, click) -> player.closeInventory());
     }
 
     /**
@@ -130,7 +96,7 @@ public class Menu implements InventoryHolder {
         if (event.getCurrentItem() == null || MaterialUtils.isAir(event.getCurrentItem().getType()))
             return;
 
-        clickables.get(event.getSlot()).click(actions, (Player) event.getWhoClicked(), event.getClick());
+        clickables.get(event.getSlot()).click(this, event);
         update();
     }
 

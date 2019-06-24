@@ -9,7 +9,7 @@ import me.codalot.gui.menus.components.items.MenuItem;
 import me.codalot.gui.utils.CommandUtils;
 import me.codalot.gui.utils.SoundUtils;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,7 +119,9 @@ public class Button implements IComponent, Clickable {
     }
 
     @Override
-    public void click(Map<String, BiConsumer<Player, ClickType>> actions, Player player, ClickType type) {
+    public void click(Menu menu, InventoryClickEvent event) {
+        Player player = (Player) event.getWhoClicked();
+
         if (permission != null && !player.hasPermission(permission)) {
             if (noPermissionMessage != null)
                 player.sendMessage(noPermissionMessage);
@@ -128,9 +130,9 @@ public class Button implements IComponent, Clickable {
             return;
         }
 
-        BiConsumer<Player, ClickType> action = actions.get(this.action);
+        BiConsumer<Menu, InventoryClickEvent> action = menu.getData().getActions().get(this.action);
         if (action != null)
-            action.accept(player, type);
+            action.accept(menu, event);
 
 
         if (commands != null)
